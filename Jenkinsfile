@@ -1,12 +1,12 @@
 pipeline {
   agent any
   stages {
-    agent {
-      docker {
-        image 'angular/ngcontainer:0.5.0'
-      }
-    }
     stage('Build') {
+      agent {
+        docker {
+          image 'angular/ngcontainer:0.5.0'
+        }
+      }
       steps {
         sh 'ng build'
       }
