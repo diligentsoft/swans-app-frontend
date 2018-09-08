@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { FlytippingReport } from './flytipping';
+import {environment} from '../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class SwansAppService {
 
-  private flytippingUrl = 'https://zia6r5shye.execute-api.eu-west-2.amazonaws.com/dev/flytipping';  // URL to web api
+  private flytippingResource = '/flytipping';  // URL to web api
 
   constructor(
     private http: HttpClient) { }
@@ -23,7 +24,7 @@ export class SwansAppService {
 
   /** POST: add a new flytipping report to the server */
   sendFlytippngReport (report: FlytippingReport): Observable<FlytippingReport> {
-    return this.http.post<FlytippingReport>(this.flytippingUrl, report, httpOptions).pipe(
+    return this.http.post<FlytippingReport>(environment.backendBaseUrl + this.flytippingResource, report, httpOptions).pipe(
       tap((report: FlytippingReport) => console.log(`sent flytipping report`)),
       catchError(this.handleError<FlytippingReport>('sendFlytippngReport'))
     );
