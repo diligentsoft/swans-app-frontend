@@ -1,0 +1,26 @@
+.l-locationpicker-class {
+ position: relative;
+ display: inline-block;
+ overflow: hidden;
+ width: 500px;
+ height: 400px;
+}
+
+@media (max-width: 500px) {
+
+  .l-locationpicker-class {
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .l-locationpicker-class   {
+    width: 700px;
+    height: 500px;
+  }
+
+}

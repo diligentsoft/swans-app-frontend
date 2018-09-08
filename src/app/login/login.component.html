@@ -1,0 +1,21 @@
+<section id="view">
+
+  <div class="container">
+
+    <h2>Login</h2>
+
+    <div *ngIf="loginFailed" class="alert alert-danger">
+      <p>Authentication failed.  Please ensure you have registered.</p>
+    </div>
+
+    <form (submit)="login()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" [(ngModel)]="email">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+  </div>
+
+</section>
