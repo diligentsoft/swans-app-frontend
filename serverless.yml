@@ -17,6 +17,10 @@ plugins:
   - serverless-finch
 
 custom:
+  env: ${opt:stage, 'dev'}
+  bucketPrefixes:
+    dev: dev
+    prod: www
   client:
-    bucketName: www.swans.app
+    bucketName: ${self:custom.bucketPrefixes.${self:custom.env}}.swans.app
     distributionFolder: dist/
