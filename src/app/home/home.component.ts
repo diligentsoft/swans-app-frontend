@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     'image/png'
   ];
 
-  photoFileSizeMaxMegabytes = 1048576;
+  photoFileSizeMaxBytes = 10048576;
 
   @ViewChild(LocationpickerComponent)
   private locationPickerComponent: LocationpickerComponent;
@@ -53,14 +53,14 @@ export class HomeComponent implements OnInit {
       }
     } else {
       this.imageFileDataUri = '';
-      var megabytes = (this.photoFileSizeMaxMegabytes / 1048576).toFixed(2);
+      var megabytes = (this.photoFileSizeMaxBytes / 1048576).toFixed(2);
       this.imageUploadErrorMsg = `File must be jpg, png, or gif 
         and cannot exceed ${megabytes} MB in size`;
     }
   }
 
   validateFile(file) {
-    return this.acceptedMimeTypes.includes(file.type) && file.size < this.photoFileSizeMaxMegabytes;
+    return this.acceptedMimeTypes.includes(file.type) && file.size < this.photoFileSizeMaxBytes;
   }
 
   submitFlytippingReport() {
