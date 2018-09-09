@@ -4,10 +4,11 @@ pipeline {
     stage('Build') {
       agent {
         docker {
-          image 'angular/ngcontainer:0.5.0'
+          image 'teracy/angular-cli:1.5.0'
         }
       }
       steps {
+        //sh 'npm install'
         sh 'ng build'
       }
     }
