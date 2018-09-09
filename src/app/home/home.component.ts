@@ -4,6 +4,7 @@ import {SwansAppService} from "../swans.app.service";
 import {LocationpickerComponent} from "../locationpicker";
 import {HttpClient} from "@angular/common/http";
 import { UUID } from 'angular2-uuid';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -71,8 +72,7 @@ export class HomeComponent implements OnInit {
       const data = {'image': base64File, 'filename': `${this.report.imageFilename}`};
       // TODO: send to server
       console.log(base64File);
-      var apiUrl = 'https://zia6r5shye.execute-api.eu-west-2.amazonaws.com/dev/'
-      this.http.post(`${apiUrl}/files`, data)
+      this.http.post(`${environment.backendBaseUrl}/files`, data)
         .subscribe(
           res => {
             // handle success
