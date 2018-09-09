@@ -20,7 +20,6 @@ pipeline {
       }
       steps {
         withAWS(credentials:'diligentsoft') {
-          sh 'npm install serverless-finch --save-dev'
           sh 'sls deploy --stage dev'
         }
       }
