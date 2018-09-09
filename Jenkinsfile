@@ -1,23 +1,17 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'amaysim/serverless:1.27.1'
+    }
+  }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'teracy/angular-cli:1.5.0'
-        }
-      }
       steps {
         sh 'npm install'
-        sh 'ng build'
+        sh '$(npm bin)/ng build'
       }
     }
     stage('Deploy - Dev') {
-      agent {
-        docker {
-          image 'amaysim/serverless:1.27.1'
-        }
-      }
       steps {
         withAWS(credentials:'diligentsoft') {
           sh 'sls deploy --stage dev'
@@ -30,11 +24,6 @@ pipeline {
       }
     }
     stage('Deploy - Prod') {
-      agent {
-        docker {
-          image 'amaysim/serverless:1.27.1'
-        }
-      }
       steps {
         withAWS(credentials:'diligentsoft') {
           sh 'sls deploy --stage prod'
