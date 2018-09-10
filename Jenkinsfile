@@ -15,19 +15,25 @@ pipeline {
         }
       }
     }
-    stage('Acceptance Test - Dev') {
-      agent {
-        docker {
-          image 'jobteaser/docker-capybara-chrome-headless'
-        }
-      }
+    stage('Smoke Test - Dev') {
+      agent any
       steps {
-        dir('acceptance') {
-          sh 'bundle install'
-          sh 'ENVIRONMENT=dev cucumber features/registration.feature'
-        }
+        sh 'curl https://dev.swans.app | grep \'<title>Swans.app</title>\''
       }
     }
+//    stage('Acceptance Test - Dev') {
+//      agent {
+//        docker {
+//          image 'jobteaser/docker-capybara-chrome-headless'
+//        }
+//      }
+//      steps {
+//        dir('acceptance') {
+//          sh 'bundle install'
+//          sh 'ENVIRONMENT=dev cucumber features/registration.feature'
+//        }
+//      }
+//    }
     stage('Sanity check') {
       steps {
         input "Does the dev environment look ok? Deploy to prod?"
