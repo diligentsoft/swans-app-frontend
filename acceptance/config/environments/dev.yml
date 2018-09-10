@@ -1,0 +1,3 @@
+environment: dev
+swans_app_frontend:
+  base_url: https://dev.swans.app
