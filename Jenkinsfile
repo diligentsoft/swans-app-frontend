@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Build') {
+    stage('Build & Deploy Dev') {
       agent {
         docker {
           image 'amaysim/serverless:1.27.1'
@@ -10,15 +10,6 @@ pipeline {
       steps {
         sh 'npm install'
         sh '$(npm bin)/ng build'
-      }
-    }
-    stage('Deploy - Dev') {
-      agent {
-        docker {
-          image 'amaysim/serverless:1.27.1'
-        }
-      }
-      steps {
         withAWS(credentials:'diligentsoft') {
           sh 'sls client deploy --stage dev'
         }
