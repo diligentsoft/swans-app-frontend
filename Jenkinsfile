@@ -14,7 +14,7 @@ pipeline {
     stage('Deploy - Dev') {
       steps {
         withAWS(credentials:'diligentsoft') {
-          sh 'sls client deploy --stage dev'
+          sh 'sls client deploy --stage dev --no-confirm'
         }
       }
     }
@@ -27,7 +27,7 @@ pipeline {
       steps {
         sh '$(npm bin)/ng build -prod'
         withAWS(credentials:'diligentsoft') {
-          sh 'sls client deploy --stage prod'
+          sh 'sls client deploy --stage prod --no-confirm'
         }
       }
     }

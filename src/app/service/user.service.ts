@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {User} from "./user.model";
 
-const userTokenKey: string = 'userToken'
+const userTokenKey = 'userToken';
 
 @Injectable()
 export class UserService {
 
   register(user: User) {
-    localStorage.setItem(user.email, JSON.stringify(user))
+    localStorage.setItem(user.email, JSON.stringify(user));
   }
 
   authenticate(email) {
@@ -20,15 +20,15 @@ export class UserService {
   }
 
   isUserAuthenticated() {
-    return localStorage.getItem(userTokenKey) != null
+    return localStorage.getItem(userTokenKey) != null;
   }
 
   getAuthenticatedUser() {
-    return localStorage.getItem(userTokenKey)
+    return localStorage.getItem(userTokenKey);
   }
 
   logout() {
-    return localStorage.removeItem(userTokenKey)
+    return localStorage.removeItem(userTokenKey);
   }
 
 }
