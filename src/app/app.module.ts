@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SwansAppService } from './swans.app.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LocationpickerModule } from './locationpicker';
+import { LocationPickerModule } from './location-picker';
 import { UserService } from './service/user.service';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -19,7 +19,7 @@ import { AuthGuard } from './auth/auth.guard';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    LocationpickerModule
+    LocationPickerModule
   ],
   declarations: [
     AppComponent,

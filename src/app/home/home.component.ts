@@ -1,10 +1,10 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FlytippingReport } from '../flytipping';
-import {SwansAppService} from "../swans.app.service";
-import {LocationpickerComponent} from "../locationpicker";
-import {HttpClient} from "@angular/common/http";
+import { SwansAppService } from '../swans.app.service';
+import { LocationPickerComponent } from '../location-picker';
+import { HttpClient } from '@angular/common/http';
 import { UUID } from 'angular2-uuid';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
 
   photoFileSizeMaxBytes = 10048576;
 
-  @ViewChild(LocationpickerComponent)
-  private locationPickerComponent: LocationpickerComponent;
+  @ViewChild(LocationPickerComponent)
+  private locationPickerComponent: LocationPickerComponent;
 
   @ViewChild('fileInput') fileInput: ElementRef;
   imageFileDataUri = '';
@@ -32,13 +32,10 @@ export class HomeComponent implements OnInit {
 
   report: FlytippingReport;
 
-  submissionSuccess: boolean = false;
-
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  submissionSuccess = false;
 
   ngOnInit(): void {
-    this.report = new FlytippingReport()
+    this.report = new FlytippingReport();
   }
 
   constructor(private service: SwansAppService, private http: HttpClient) {}
@@ -51,12 +48,11 @@ export class HomeComponent implements OnInit {
       reader.readAsDataURL(this.fileInput.nativeElement.files[0]);
       reader.onload = () => {
         this.imageFileDataUri = reader.result;
-      }
+      };
     } else {
       this.imageFileDataUri = '';
-      var megabytes = (this.photoFileSizeMaxBytes / 1048576).toFixed(2);
-      this.imageUploadErrorMsg = `File must be jpg, png, or gif 
-        and cannot exceed ${megabytes} MB in size`;
+      const megabytes = (this.photoFileSizeMaxBytes / 1048576).toFixed(2);
+      this.imageUploadErrorMsg = `File must be jpg, png, or gif and cannot exceed ${megabytes} MB in size`;
     }
   }
 
@@ -68,9 +64,8 @@ export class HomeComponent implements OnInit {
     // get only the base64 file
     if (this.imageFileDataUri.length > 0) {
       const base64File = this.imageFileDataUri.split(',')[1];
-      this.report.imageFilename = UUID.UUID() + '_' + this.fileInput.nativeElement.files[0].name
+      this.report.imageFilename = UUID.UUID() + '_' + this.fileInput.nativeElement.files[0].name;
       const data = {'image': base64File, 'filename': `${this.report.imageFilename}`};
-      // TODO: send to server
       console.log(base64File);
       this.http.post(`${environment.backendBaseUrl}/files`, data)
         .subscribe(
@@ -85,16 +80,16 @@ export class HomeComponent implements OnInit {
         );
     }
 
-    var location = this.locationPickerComponent.$picker.locationpicker('location');
+    const location = this.locationPickerComponent.$picker.locationpicker('location');
     this.report.dateTime = new Date().toLocaleString();
     this.report.latitude = location.latitude;
     this.report.longitude = location.longitude;
-    var userEmail = localStorage.getItem("userToken")
+    const userEmail = localStorage.getItem("userToken")
     this.report.user = JSON.parse(localStorage.getItem(userEmail))
     this.service.sendFlytippngReport(this.report).subscribe(
       x => this.submissionSuccess = true,
       err => this.submissionSuccess = false
-   )
+   );
   }
 
 }

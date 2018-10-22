@@ -213,7 +213,7 @@
           if (!e.originalEvent || isNaN(latitudeInputValue)) {
             return;
           }
-          GmUtility.setPosition(gmapContext, new google.maps.LatLng(latitudeInputValue, gmapContext.location.lng()), function(context) {
+          GmUtility.setPosition(gmapContext, new google.maps.LatLng(latitudeInputValue, gmapContext.location.long()), function(context) {
             context.settings.onchanged.apply(gmapContext.domContainer, [ GmUtility.locationFromLatLng(context.location), context.radius, false ]);
             updateInputValues(gmapContext.settings.inputBinding, gmapContext);
           });

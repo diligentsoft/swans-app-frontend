@@ -5,21 +5,21 @@ declare var $: any;
 declare var require: any;
 
 @Component({
-  selector: 'l-locationpicker',
+  selector: 'app-location-picker',
   styleUrls: [
-    "./locationpicker.css"
+    './location-picker.css'
   ],
   template: `
-    <div #locationpickerEl>
-      <div class="locationpicker-loading">Loading map...</div>
+    <div #locationPicker>
+      <div class="location-picker-loading">Loading map...</div>
     </div>
   `
 })
-export class LocationpickerComponent implements OnInit {
+export class LocationPickerComponent implements OnInit {
 
-  @Input() lClass: string = 'l-locationpicker-class';
+  @Input() locationPickerCssClass = 'location-picker';
 
-  @ViewChild('locationpickerEl') locationpickerEl: ElementRef;
+  @ViewChild('locationPicker') locationPicker: ElementRef;
 
   $picker: any;
 
@@ -27,21 +27,19 @@ export class LocationpickerComponent implements OnInit {
   }
 
   ngOnInit() {
-    require.ensure(['./locationpicker.jquery.js'], require => {
-      require('./locationpicker.jquery.js');
-      if ("geolocation" in navigator) {
+    require.ensure(['./location-picker.jquery.js'], require => {
+      require('./location-picker.jquery.js');
+      if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          var settings = {
+          const settings = {
             radius: 0,
             location: {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
             }
-          }
-          this.$picker = $(this.locationpickerEl.nativeElement).locationpicker(settings);
-          this.rd.addClass(this.locationpickerEl.nativeElement, this.lClass)
-          // settings.location.latitude = position.coords.latitude;
-          // settings.location.longitude = position.coords.longitude;
+          };
+          this.$picker = $(this.locationPicker.nativeElement).locationpicker(settings);
+          this.rd.addClass(this.locationPicker.nativeElement, this.locationPickerCssClass);
         });
        }
     });
@@ -70,8 +68,8 @@ export class LocationpickerComponent implements OnInit {
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [LocationpickerComponent],
-  exports: [LocationpickerComponent]
+  declarations: [LocationPickerComponent],
+  exports: [LocationPickerComponent]
 })
-export class LocationpickerModule {
+export class LocationPickerModule {
 }
